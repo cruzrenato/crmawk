@@ -1,0 +1,6 @@
+.env
+.env.production
+vendor/
+node_modules/
+.DS_Store
+*.log
