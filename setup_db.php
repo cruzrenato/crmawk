@@ -4,9 +4,9 @@
  */
 
 $host = 'localhost';
-$user = 'root';
-$pass = ''; // Altere se necessário
-$dbname = 'molas_crm';
+$user = 'u784428213_rehz';
+$pass = 'H/b9WzMpG'; // Altere se necessário
+$dbname = 'u784428213_base';
 
 try {
     // 1. Conectar sem banco de dados
@@ -18,7 +18,7 @@ try {
     $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbname` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
     
     // 3. Conectar ao banco criado
-    $pdo->exec("USE `$dbname` text;");
+    $pdo->exec("USE `$dbname`;");
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     

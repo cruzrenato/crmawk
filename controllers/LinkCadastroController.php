@@ -38,10 +38,11 @@ class LinkCadastroController {
         requireAuth();
         
         $token = $this->linkModel->create(null);
-        $_SESSION['success'] = 'Link de cadastro avulso gerado com sucesso';
-        $_SESSION['link_gerado'] = BASE_URL . '/ficha/' . $token;
+        $link = BASE_URL . '/ficha/' . $token;
+        flash('success', "Link externo gerado com sucesso! <br><br>Copie e envie para seu cliente: <br><br><b><a href='$link' target='_blank' style='color:#fff; text-decoration:underline;'>$link</a></b>");
         
-        redirect('links');
+        $referer = $_SERVER['HTTP_REFERER'] ?? BASE_URL . '/clientes';
+        redirect($referer);
     }
     
     /**

@@ -5,10 +5,10 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- --------------------------------------------------------
--- Database: molas_crm
+-- Database: u784428213_base
 -- --------------------------------------------------------
-CREATE DATABASE IF NOT EXISTS `molas_crm` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `molas_crm`;
+CREATE DATABASE IF NOT EXISTS `u784428213_base` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `u784428213_base`;
 
 -- --------------------------------------------------------
 -- Table `usuarios`

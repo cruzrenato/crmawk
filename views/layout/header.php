@@ -380,10 +380,10 @@
             <button class="btn btn-outline" id="theme-toggle">
                 <i class="fas fa-moon"></i>
             </button>
-            <button class="btn btn-primary">
+            <a href="<?php echo BASE_URL; ?>/projetos/criar" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Novo Projeto
-            </button>
+            </a>
         </div>
     </header>
     <?php endif; ?>

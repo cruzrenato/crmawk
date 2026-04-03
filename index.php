@@ -42,7 +42,11 @@ function loadView($viewPath, $data = []) {
 
 // Função para redirecionar
 function redirect($url) {
-    header("Location: " . BASE_URL . '/' . $url);
+    if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0 || strpos($url, '/') === 0) {
+        header("Location: " . $url);
+    } else {
+        header("Location: " . BASE_URL . '/' . $url);
+    }
     exit();
 }
 
@@ -83,9 +87,28 @@ $url = isset($_GET['url']) ? $_GET['url'] : 'dashboard';
 $url = rtrim($url, '/');
 $urlParts = explode('/', $url);
 
-// Roteamento
-$controllerName = isset($urlParts[0]) ? ucfirst($urlParts[0]) . 'Controller' : 'DashboardController';
+// Mapeamento de rotas plurais para controllers singulares
+$routeAliases = [
+    'clientes' => 'ClienteController',
+    'veiculos' => 'VeiculoController',
+    'projetos' => 'ProjetoController',
+    'usuarios' => 'UsuarioController',
+    'links'    => 'LinkCadastroController'
+];
+
+$controllerName = isset($urlParts[0]) && $urlParts[0] !== '' ? ucfirst($urlParts[0]) . 'Controller' : 'DashboardController';
 $action = isset($urlParts[1]) ? $urlParts[1] : 'index';
+
+if (isset($urlParts[0]) && isset($routeAliases[$urlParts[0]])) {
+    $controllerName = $routeAliases[$urlParts[0]];
+}
+
+// Mapeamento especial para auth
+if ($urlParts[0] === 'login' || $urlParts[0] === 'logout') {
+    $controllerName = 'AuthController';
+    $action = $urlParts[0];
+}
+
 $params = array_slice($urlParts, 2);
 
 // Rotas públicas (não requerem autenticação)
@@ -113,6 +136,9 @@ if (file_exists($controllerFile)) {
         if (method_exists($controller, $action)) {
             // Chamar o método com parâmetros
             call_user_func_array([$controller, $action], $params);
+        } elseif ($action === 'index' && method_exists($controller, 'listar')) {
+            // Fallback: se buscou index mas o controller usa listar
+            call_user_func_array([$controller, 'listar'], $params);
         } else {
             // Método não encontrado
             http_response_code(404);

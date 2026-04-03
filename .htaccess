@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Definir o diretório base
-RewriteBase /
+RewriteBase /crmawk/
 
 # Redirecionar todas as requisições para o index.php
 RewriteCond %{REQUEST_FILENAME} !-f

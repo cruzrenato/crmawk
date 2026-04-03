@@ -9,9 +9,9 @@ class Database {
     
     // Configurações do banco de dados
     private $host = 'localhost';
-    private $dbname = 'molas_crm';
-    private $username = 'root';
-    private $password = '';
+    private $dbname = 'u784428213_base';
+    private $username = 'u784428213_rehz';
+    private $password = 'H/b9WzMpG';
     private $charset = 'utf8mb4';
     
     private function __construct() {
@@ -111,7 +111,7 @@ class Database {
      * Verifica se uma tabela existe
      */
     public function tableExists($tableName) {
-        $sql = "SHOW TABLES LIKE ?";
+        $sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = ?";
         $result = $this->fetchValue($sql, [$tableName]);
         return !empty($result);
     }
